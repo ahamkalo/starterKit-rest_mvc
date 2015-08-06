@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head lang="en">
+<meta charset="UTF-8" />
+<title>Confirmation</title>
+<link rel="stylesheet" th:href="@{/static/application.css}"
+	href="/static/application.css" />
+</head>
+<body>
+	<table class="confirmationTable">
+		<tr class="confirmationTable">
+			<td class="confirmationTable"><p class="confirmationText" th:inline="text">[[${message}]]</p></td>
+
+		</tr>
+		<tr class="confirmationTable">
+			<td class="confirmationTable">
+				<button>
+					<a th:href="@{/table}">Back to table</a>
+				</button>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
