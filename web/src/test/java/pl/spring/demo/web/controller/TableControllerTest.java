@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -73,14 +74,16 @@ public class TableControllerTest {
 	@Test
 	public void testDeleteButtonClick() throws Exception {
 		// given when
+		String message = "Książka o tytule \"title1\" została usunięta.";
 		final BookTo bookTo = new BookTo(1L, "title1", "Author1");
 		Mockito.when(bookService.findBookById(Mockito.anyLong())).thenReturn(bookTo);
 		
 		ResultActions resultActions = mockMvc.perform(post("/table?id=1"));
 		// then
+		
 		Mockito.verify(bookService).findBookById(1L);
 		Mockito.verify(bookService).deleteBook(Mockito.anyLong());
-		resultActions.andExpect(view().name("redirect:/confirmation"));
+		resultActions.andExpect(MockMvcResultMatchers.redirectedUrl("/confirmation")).andExpect(MockMvcResultMatchers.flash().attribute("message", message));
 	}
 
 }
